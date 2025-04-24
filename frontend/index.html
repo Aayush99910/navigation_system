@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sigma Graph</title>
+    <style>
+      /* Reset + Box Sizing */
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; /* Removes scrollbars */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9fafb;
+        color: #333;
+      }
+
+      #main-container {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      #side-bar-container {
+        background-color: #ffffff;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        padding: 30px 20px;
+        width: 18%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        border-right: 1px solid #eee;
+      }
+
+      #side-bar-container h1 {
+        font-size: 1.6rem;
+        color: #007acc;
+        margin: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      #directions-box {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding-top: 10px;
+        border-top: 1px solid #ddd;
+      }
+
+      #directions-box h2 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        color: #444;
+      }
+
+      #directions-list {
+        list-style: none;
+        padding-left: 0;
+        font-size: 0.95rem;
+      }
+
+      #directions-list li {
+        margin-bottom: 8px;
+        padding-left: 12px;
+        position: relative;
+      }
+
+      #directions-list li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: #007acc;
+      }
+
+
+      #source-destination-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        flex-grow: 1;
+      }
+
+      #source-destination-form input[type="text"] {
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        transition: border-color 0.2s ease;
+      }
+
+      #source-destination-form input[type="text"]:focus {
+        border-color: #007acc;
+        outline: none;
+      }
+
+      #submit-btn {
+        padding: 10px;
+        font-size: 1rem;
+        background-color: #007acc;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      #submit-btn:hover {
+        background-color: #005fa3;
+      }
+
+      #container {
+        flex: 1;
+        height: 100%;
+        background-color: #f0f4f8;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+      }
+
+      @media (max-width: 768px) {
+        #side-bar-container {
+          width: 100%;
+          height: auto;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-around;
+          padding: 10px;
+        }
+
+        #container {
+          border-radius: 0;
+        }
+
+        #source-destination-form {
+          flex-direction: row;
+          gap: 10px;
+        }
+
+        #source-destination-form input,
+        #submit-btn {
+          flex: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main-container">
+      <div id="side-bar-container">
+        <h1 id="">Navigation System</h1>
+        <form id="source-destination-form">
+          <input type="text" name="starting">
+          <input type="text" name="destination">
+          <button type="submit" id="submit-btn">Submit button</button>
+        </form>
+        <div id="directions-box">
+          <h2>Directions</h2>
+          <ul id="directions-list">
+            <!-- Path steps will go here dynamically -->
+          </ul>
+        </div>
+      </div>
+      <div id="container"></div>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
