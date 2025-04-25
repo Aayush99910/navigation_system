@@ -1,3 +1,5 @@
 *.png
 frontend/node_modules
 frontend/.gitignore
+src/__pycache__
+.venv
