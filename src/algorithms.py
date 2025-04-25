@@ -20,6 +20,7 @@ class Graph:
 def dijsktra_shortest_path(graph, start):
     paths = {vertex: [] for vertex in graph}
     paths[start] = [start]
+    streets = {vertex: [] for vertex in graph}
 
     distances = {vertex: float("inf") for vertex in graph}
     distances[start] = 0 
@@ -40,5 +41,6 @@ def dijsktra_shortest_path(graph, start):
                 distances[n] = td 
                 queue.put((td, n))
                 paths[n] = paths[cv] + [n]
+                streets[n] = streets[cv] + [[s, w]]
 
-    return distances, paths 
+    return distances, paths, streets 
