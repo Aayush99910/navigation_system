@@ -11,9 +11,11 @@ function showDirections(paths) {
   const directionsList = document.getElementById('directions-list');
   directionsList.innerHTML = ''; // clear old list
 
-  paths.forEach(step => {
+  paths.forEach(detail => {
+    const streetName = detail[0];
+    const distance = detail[1];
     const li = document.createElement('li');
-    li.textContent = step;
+    li.textContent = `Take ${streetName} for ${distance} units`;
     directionsList.appendChild(li);
   });
 }
@@ -121,11 +123,20 @@ async function handlePath(starting, destination) {
 
     // handling the messages here
     const data = await response.json();
+
+    // alert the user with appropiate message if path not found
+    if (! data.path_found) {
+      showAlert(data.message, () => {
+        form.querySelector('input[name="starting"]').focus();
+      });
+      return       
+    }
+
     const graph = data.graph;
     nodes = graph.nodes;
     edges = graph.edges;
     drawGraph();
-    showDirections(data.paths);
+    showDirections(data.streets);
   }
   catch(err) {
       console.log("Error", err);
@@ -145,3 +156,19 @@ form.addEventListener("submit", (event) => {
   // calling the function 
   handlePath(startingValue, destinationValue);
 });
+
+
+function showAlert(message, callback) {
+  const alertBox = document.getElementById("custom-alert");
+  const alertMsg = document.getElementById("alert-message");
+
+  alertMsg.textContent = message;
+  alertBox.style.display = "flex";
+
+  // Wait for user to click OK
+  const okButton = alertBox.querySelector("button");
+  okButton.onclick = function () {
+    alertBox.style.display = "none";
+    if (callback) callback();
+  };
+}
